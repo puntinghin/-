@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>綠意手作 - 永續在地工藝品牌</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'earth-beige': '#F5F1EB',
+                        'earth-brown': '#8B7355',
+                        'earth-green': '#7A8471',
+                        'earth-sage': '#9CAF88',
+                        'earth-dark': '#5A4A3A',
+                        'earth-light': '#FAF8F5'
+                    },
+                    fontFamily: {
+                        'sans': ['Noto Sans TC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #F5F1EB 0%, #FAF8F5 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(90, 74, 58, 0.1);
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .filter-btn.active {
+            background-color: #7A8471;
+            color: white;
+        }
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="font-sans bg-earth-light text-earth-dark">
+    <!-- Dark Mode Support -->
+    <script>
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-earth-beige dark:bg-gray-900/95 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-earth-green">綠意手作</h1>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <button class="nav-link text-earth-green font-medium" data-page="home">首頁</button>
+                        <button class="nav-link text-earth-dark hover:text-earth-green transition-colors" data-page="products">產品</button>
+                        <button class="nav-link text-earth-dark hover:text-earth-green transition-colors" data-page="story">品牌故事</button>
+                        <button class="nav-link text-earth-dark hover:text-earth-green transition-colors" data-page="contact">聯絡我們</button>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="text-earth-dark hover:text-earth-green transition-colors">
+                        <i class="fas fa-search text-lg"></i>
+                    </button>
+                    <button id="cartBtn" class="relative text-earth-dark hover:text-earth-green transition-colors">
+                        <i class="fas fa-shopping-bag text-lg"></i>
+                        <span id="cartCount" class="absolute -top-2 -right-2 bg-earth-green text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                    <button id="mobileMenuBtn" class="md:hidden text-earth-dark hover:text-earth-green">
+                        <i class="fas fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed inset-0 z-40 bg-white transform -translate-x-full transition-transform duration-300 md:hidden dark:bg-gray-900">
+        <div class="pt-20 px-6">
+            <button class="block py-3 text-lg text-earth-green font-medium w-full text-left" data-page="home">首頁</button>
+            <button class="block py-3 text-lg text-earth-dark hover:text-earth-green dark:text-gray-300 w-full text-left" data-page="products">產品</button>
+            <button class="block py-3 text-lg text-earth-dark hover:text-earth-green dark:text-gray-300 w-full text-left" data-page="story">品牌故事</button>
+            <button class="block py-3 text-lg text-earth-dark hover:text-earth-green dark:text-gray-300 w-full text-left" data-page="contact">聯絡我們</button>
+        </div>
+    </div>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <main class="pt-16">
+            <!-- Hero Section -->
+            <section class="hero-bg min-h-screen flex items-center">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="fade-in">
+                            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-earth-dark leading-tight mb-6">
+                                手作的<span class="text-earth-green">溫度</span><br>
+                                永續的<span class="text-earth-sage">未來</span>
+                            </h2>
+                            <p class="text-lg text-earth-brown mb-8 leading-relaxed">
+                                在地材料，手工製作，每一件作品都承載著對環境的關愛與對工藝的堅持。
+                                讓我們一起用心選擇，為地球創造更美好的明天。
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button class="bg-earth-green text-white px-8 py-3 rounded-lg font-medium hover:bg-earth-dark transition-colors" data-page="products">
+                                    探索產品
+                                </button>
+                                <button class="border-2 border-earth-green text-earth-green px-8 py-3 rounded-lg font-medium hover:bg-earth-green hover:text-white transition-colors" data-page="story">
+                                    了解品牌
+                                </button>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <div class="rounded-2xl overflow-hidden card-hover">
+                                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="手工編織"
+                                     class="w-full h-96 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-earth-dark/80 to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 text-white">
+                                    <h3 class="text-xl font-semibold mb-2">永續工藝</h3>
+                                    <p class="text-earth-beige">使用天然材料，傳承在地技法</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Products -->
+            <section class="py-20 bg-white dark:bg-gray-900">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-earth-dark dark:text-white mb-4">精選商品</h2>
+                        <p class="text-lg text-earth-brown dark:text-gray-400 max-w-2xl mx-auto">
+                            每一件作品都是獨一無二的手工創作，蘊含著工藝師的匠心與對永續的承諾
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Product 1 -->
+                        <div class="bg-earth-light rounded-2xl overflow-hidden card-hover dark:bg-gray-800">
+                            <div class="aspect-square relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="天然藍染上衣"
+                                     class="w-full h-full object-cover">
+                                <div class="absolute top-4 right-4 bg-earth-sage text-white px-3 py-1 rounded-full text-sm">
+                                    手工染色
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-2">天然藍染上衣</h3>
+                                <p class="text-earth-brown dark:text-gray-400 mb-4">使用在地種植的藍草，純手工染製</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-earth-green">NT$ 1,280</span>
+                                    <button class="bg-earth-green text-white px-6 py-2 rounded-lg hover:bg-earth-dark transition-colors add-to-cart" data-product="天然藍染上衣" data-price="1280">
+                                        加入購物車
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="bg-earth-light rounded-2xl overflow-hidden card-hover dark:bg-gray-800">
+                            <div class="aspect-square relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1590736969955-71cc94901144?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="手編環保提袋"
+                                     class="w-full h-full object-cover">
+                                <div class="absolute top-4 right-4 bg-earth-green text-white px-3 py-1 rounded-full text-sm">
+                                    回收材料
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-2">手編環保提袋</h3>
+                                <p class="text-earth-brown dark:text-gray-400 mb-4">回收塑料瓶製成纖維，手工編織</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-earth-green">NT$ 680</span>
+                                    <button class="bg-earth-green text-white px-6 py-2 rounded-lg hover:bg-earth-dark transition-colors add-to-cart" data-product="手編環保提袋" data-price="680">
+                                        加入購物車
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="bg-earth-light rounded-2xl overflow-hidden card-hover dark:bg-gray-800">
+                            <div class="aspect-square relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="竹編收納籃"
+                                     class="w-full h-full object-cover">
+                                <div class="absolute top-4 right-4 bg-earth-brown text-white px-3 py-1 rounded-full text-sm">
+                                    天然材料
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-2">竹編收納籃</h3>
+                                <p class="text-earth-brown dark:text-gray-400 mb-4">本土竹材，傳統編織工藝</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-earth-green">NT$ 950</span>
+                                    <button class="bg-earth-green text-white px-6 py-2 rounded-lg hover:bg-earth-dark transition-colors add-to-cart" data-product="竹編收納籃" data-price="950">
+                                        加入購物車
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-12">
+                        <button class="border-2 border-earth-green text-earth-green px-8 py-3 rounded-lg font-medium hover:bg-earth-green hover:text-white transition-colors" data-page="products">
+                            查看更多商品
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Brand Values -->
+            <section class="py-20 bg-earth-beige dark:bg-gray-800">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-earth-dark dark:text-white mb-4">我們的承諾</h2>
+                        <p class="text-lg text-earth-brown dark:text-gray-400">
+                            每一個選擇都體現我們對環境和社會的責任
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="bg-earth-green/20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-leaf text-3xl text-earth-green"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-4">100% 天然材料</h3>
+                            <p class="text-earth-brown dark:text-gray-400">
+                                堅持使用無毒害的天然原料，讓每件產品都是對健康的保障
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-earth-sage/20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-hands-helping text-3xl text-earth-sage"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-4">支持在地工藝</h3>
+                            <p class="text-earth-brown dark:text-gray-400">
+                                與在地工藝師合作，傳承傳統技藝，創造永續就業機會
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-earth-brown/20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-recycle text-3xl text-earth-brown"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-4">零浪費理念</h3>
+                            <p class="text-earth-brown dark:text-gray-400">
+                                從生產到包裝，每個環節都追求最小環境影響
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Newsletter -->
+            <section class="py-16 bg-earth-green">
+                <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-white mb-4">訂閱我們的永續生活誌</h2>
+                    <p class="text-earth-beige mb-8 text-lg">
+                        獲得最新的手作教學、環保生活小貼士，以及獨家優惠資訊
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                        <input
+                            type="email"
+                            placeholder="輸入您的電子郵件"
+                            class="flex-1 px-4 py-3 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-white"
+                        >
+                        <button class="bg-white text-earth-green px-6 py-3 rounded-lg font-medium hover:bg-earth-beige transition-colors">
+                            訂閱
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- PRODUCTS PAGE -->
+    <div id="products" class="page">
+        <main class="pt-16">
+            <!-- Page Header -->
+            <section class="bg-earth-beige py-20 dark:bg-gray-800">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-4xl sm:text-5xl font-bold text-earth-dark dark:text-white mb-6">我們的產品</h1>
+                    <p class="text-lg text-earth-brown dark:text-gray-400 max-w-3xl mx-auto">
+                        每一件作品都經過精心設計與製作，使用最優質的天然材料，
+                        融合傳統工藝與現代美學，為您的生活帶來溫暖與品質
+                    </p>
+                </div>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="py-8 bg-white dark:bg-gray-900 border-b border-earth-beige dark:border-gray-700">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <button class="filter-btn active px-6 py-2 rounded-full border-2 border-earth-green text-earth-green hover:bg-earth-green hover:text-white transition-colors" data-filter="all">
+                            全部商品
+                        </button>
+                        <button class="filter-btn px-6 py-2 rounded-full border-2 border-earth-green text-earth-green hover:bg-earth-green hover:text-white transition-colors" data-filter="clothing">
+                            服飾配件
+                        </button>
+                        <button class="filter-btn px-6 py-2 rounded-full border-2 border-earth-green text-earth-green hover:bg-earth-green hover:text-white transition-colors" data-filter="home">
+                            居家用品
+                        </button>
+                        <button class="filter-btn px-6 py-2 rounded-full border-2 border-earth-green text-earth-green hover:bg-earth-green hover:text-white transition-colors" data-filter="accessories">
+                            生活配件
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Grid -->
+            <section class="py-20 bg-white dark:bg-gray-900">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        <!-- Product 1 -->
+                        <div class="product-item bg-earth-light rounded-2xl overflow-hidden card-hover dark:bg-gray-800" data-category="clothing">
+                            <div class="aspect-square relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="天然藍染上衣"
+                                     class="w-full h-full object-cover">
+                                <div class="absolute top-4 right-4 bg-earth-sage text-white px-3 py-1 rounded-full text-sm">
+                                    手工染色
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold text-earth-dark dark:text-white mb-2">天然藍染上衣</h3>
+                                <p class="text-earth-brown dark:text-gray-400 mb-4 text-sm">使用在地種植的藍草，純手工染製</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold text-earth-green">NT$ 1,280</span>
+                                    <button class="bg-earth-green text-white px-4 py-2 rounded-lg hover:bg-earth-dark transition-colors add-to-cart" data-product="天然藍染上衣" data-price="1280">
+                                        加入購物車
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="product-item bg-earth-light rounded-2xl overflow-hidden card-hover dark:bg-gray-800" data-category="accessories">
+                            <div class="aspect-square relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1590736969955-71cc94901144?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="手編環保提袋"
+                                     class="w-full h-full object-cover">
+                                <div class="absolute top-4 right-4 bg-earth-green text-white px-3 py-1 rounded-full text-sm">
+                                    回收材料
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold text-earth-dark dark:text-white mb-2">手編環保提袋</h3>
+                                <p class="text-earth-brown dark:text-gray-400 mb-4 text-sm">回收塑料瓶製成纖維，手工編織</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold text-earth-green">NT$ 680</span>
+                                    <button class="bg-earth-green text-white px-4 py-2 rounded-lg hover:bg-earth-dark transition-colors add-to-cart" data-product="手編環保提袋" data-price="680">
+                                        加入購物車
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="product-item bg-earth-light rounded-2xl overflow-hidden card-hover dark:bg-gray-800" data-category="home">
+                            <div class="aspect-square relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="竹編收納籃"
+                                     class="w-full h-full object-cover">
+                                <div class="absolute top-4 right-4 bg-earth-brown text-white px-3 py-1 rounded-full text-sm">
+                                    天然材料
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold text-earth-dark dark:text-white mb-2">竹編收納籃</h3>
+                                <p class="text-earth-brown dark:text-gray-400 mb-4 text-sm">本土竹材，傳統編織工藝</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold text-earth-green">NT$ 950</span>
+                                    <button class="bg-earth-green text-white px-4 py-2 rounded-lg hover:bg-earth-dark transition-colors add-to-cart" data-product="竹編收納籃" data-price="950">
+                                        加入購物車
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 4 -->
+                        <div class="product-item bg-earth-light rounded-2xl overflow-hidden card-hover dark:bg-gray-800" data-category="clothing">
+                            <div class="aspect-square relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="有機棉圍巾"
+                                     class="w-full h-full object-cover">
+                                <div class="absolute top-4 right-4 bg-earth-sage text-white px-3 py-1 rounded-full text-sm">
+                                    有機棉
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold text-earth-dark dark:text-white mb-2">有機棉圍巾</h3>
+                                <p class="text-earth-brown dark:text-gray-400 mb-4 text-sm">柔軟親膚的有機棉，天然植物染色</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold text-earth-green">NT$ 880</span>
+                                    <button class="bg-earth-green text-white px-4 py-2 rounded-lg hover:bg-earth-dark transition-colors add-to-cart" data-product="有機棉圍巾" data-price="880">
+                                        加入購物車
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 5 -->
+                        <div class="product-item bg-earth-light rounded-2xl overflow-hidden card-hover dark:bg-gray-800" data-category="home">
+                            <div class="aspect-square relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="陶瓷茶具組"
+                                     class="w-full h-full object-cover">
+                                <div class="absolute top-4 right-4 bg-earth-brown text-white px-3 py-1 rounded-full text-sm">
+                                    手工陶瓷
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold text-earth-dark dark:text-white mb-2">陶瓷茶具組</h3>
+                                <p class="text-earth-brown dark:text-gray-400 mb-4 text-sm">在地陶土，傳統燒製工藝</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold text-earth-green">NT$ 1,580</span>
+                                    <button class="bg-earth-green text-white px-4 py-2 rounded-lg hover:bg-earth-dark transition-colors add-to-cart" data-product="陶瓷茶具組" data-price="1580">
+                                        加入購物車
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 6 -->
+                        <div class="product-item bg-earth-light rounded-2xl overflow-hidden card-hover dark:bg-gray-800" data-category="accessories">
+                            <div class="aspect-square relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="手工皮革錢包"
+                                     class="w-full h-full object-cover">
+                                <div class="absolute top-4 right-4 bg-earth-green text-white px-3 py-1 rounded-full text-sm">
+                                    植鞣皮革
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold text-earth-dark dark:text-white mb-2">手工皮革錢包</h3>
+                                <p class="text-earth-brown dark:text-gray-400 mb-4 text-sm">植物鞣製皮革，純手工縫製</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold text-earth-green">NT$ 1,180</span>
+                                    <button class="bg-earth-green text-white px-4 py-2 rounded-lg hover:bg-earth-dark transition-colors add-to-cart" data-product="手工皮革錢包" data-price="1180">
+                                        加入購物車
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 7 -->
+                        <div class="product-item bg-earth-light rounded-2xl overflow-hidden card-hover dark:bg-gray-800" data-category="home">
+                            <div class="aspect-square relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1607748864674-cc6c6c92c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="木製餐具組"
+                                     class="w-full h-full object-cover">
+                                <div class="absolute top-4 right-4 bg-earth-brown text-white px-3 py-1 rounded-full text-sm">
+                                    實木手作
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold text-earth-dark dark:text-white mb-2">木製餐具組</h3>
+                                <p class="text-earth-brown dark:text-gray-400 mb-4 text-sm">台灣相思木，食品級天然塗料</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold text-earth-green">NT$ 720</span>
+                                    <button class="bg-earth-green text-white px-4 py-2 rounded-lg hover:bg-earth-dark transition-colors add-to-cart" data-product="木製餐具組" data-price="720">
+                                        加入購物車
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 8 -->
+                        <div class="product-item bg-earth-light rounded-2xl overflow-hidden card-hover dark:bg-gray-800" data-category="clothing">
+                            <div class="aspect-square relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="手織麻布洋裝"
+                                     class="w-full h-full object-cover">
+                                <div class="absolute top-4 right-4 bg-earth-sage text-white px-3 py-1 rounded-full text-sm">
+                                    手織麻布
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold text-earth-dark dark:text-white mb-2">手織麻布洋裝</h3>
+                                <p class="text-earth-brown dark:text-gray-400 mb-4 text-sm">天然亞麻纖維，手織布料製作</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold text-earth-green">NT$ 1,680</span>
+                                    <button class="bg-earth-green text-white px-4 py-2 rounded-lg hover:bg-earth-dark transition-colors add-to-cart" data-product="手織麻布洋裝" data-price="1680">
+                                        加入購物車
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- STORY PAGE -->
+    <div id="story" class="page">
+        <main class="pt-16">
+            <!-- Hero Section -->
+            <section class="relative h-screen">
+                <div class="absolute inset-0">
+                    <img src="https://images.unsplash.com/photo-1552346989-e069318e20a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                         alt="手工藝師工作場景"
+                         class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-earth-dark/60"></div>
+                </div>
+                <div class="relative flex items-center justify-center h-full text-center text-white">
+                    <div class="max-w-4xl px-4">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">我們的故事</h1>
+                        <p class="text-xl sm:text-2xl mb-8 text-earth-beige">
+                            從一顆對環境的關愛之心開始
+                        </p>
+                        <div class="w-24 h-1 bg-earth-sage mx-auto"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Story Beginning -->
+            <section class="py-20 bg-white dark:bg-gray-900">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-earth-dark dark:text-white mb-6">起源</h2>
+                        <div class="w-16 h-1 bg-earth-green mx-auto mb-8"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
+                        <div class="fade-in">
+                            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                 alt="創辦人肖像"
+                                 class="w-full rounded-2xl">
+                        </div>
+                        <div class="fade-in">
+                            <h3 class="text-2xl font-semibold text-earth-dark dark:text-white mb-6">從心出發的理念</h3>
+                            <p class="text-lg text-earth-brown dark:text-gray-400 mb-6 leading-relaxed">
+                                2019年，創辦人小雅在一次偶然的機會下，看見了快時尚對環境造成的嚴重污染，內心深受震撼。她決定離開原本的工作，投身於永續工藝的推廣。
+                            </p>
+                            <p class="text-lg text-earth-brown dark:text-gray-400 mb-6 leading-relaxed">
+                                「每一件衣服、每一個包包，都應該有它的故事和溫度。」這是小雅創立綠意手作的初衷。她相信，透過回歸傳統手工藝，我們能夠重新找回與物品的連結。
+                            </p>
+                            <blockquote class="border-l-4 border-earth-green pl-6 italic text-earth-dark dark:text-white">
+                                "我們不只是在製作商品，我們在編織夢想，縫製希望。"
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Values Section -->
+            <section class="py-20 bg-earth-beige dark:bg-gray-800">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-earth-dark dark:text-white mb-6">我們的價值觀</h2>
+                        <div class="w-16 h-1 bg-earth-green mx-auto mb-8"></div>
+                        <p class="text-lg text-earth-brown dark:text-gray-400 max-w-3xl mx-auto">
+                            這些核心價值指引著我們每一個決定，從材料選擇到生產過程，從包裝設計到客戶服務
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="text-center fade-in">
+                            <div class="bg-earth-green/20 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                                     alt="環保永續"
+                                     class="w-16 h-16 rounded-full object-cover">
+                            </div>
+                            <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-4">環保永續</h3>
+                            <p class="text-earth-brown dark:text-gray-400">
+                                使用天然、可再生的材料，減少對環境的負擔，為後代留下更清潔的地球
+                            </p>
+                        </div>
+                        <div class="text-center fade-in">
+                            <div class="bg-earth-sage/20 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <img src="https://images.unsplash.com/photo-1503734749479-18bb1cbe24a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                                     alt="工藝師"
+                                     class="w-16 h-16 rounded-full object-cover">
+                            </div>
+                            <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-4">匠心工藝</h3>
+                            <p class="text-earth-brown dark:text-gray-400">
+                                傳承傳統手工技藝，每一件作品都經過工藝師的用心製作，品質與美感並重
+                            </p>
+                        </div>
+                        <div class="text-center fade-in">
+                            <div class="bg-earth-brown/20 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                                     alt="有機棉認證與公平貿易標章"
+                                     class="w-16 h-16 rounded-full object-cover">
+                            </div>
+                            <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-4">國際認證</h3>
+                            <p class="text-earth-brown dark:text-gray-400">
+                                支持在地工藝師，創造公平的工作機會，讓傳統技藝得以延續和發展
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline Section -->
+            <section class="py-20 bg-white dark:bg-gray-900">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-earth-dark dark:text-white mb-6">發展歷程</h2>
+                        <div class="w-16 h-1 bg-earth-green mx-auto mb-8"></div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-earth-green"></div>
+
+                        <!-- Timeline Item 1 -->
+                        <div class="relative flex items-center mb-12">
+                            <div class="w-1/2 pr-8 text-right">
+                                <div class="bg-earth-light rounded-lg p-6 dark:bg-gray-800">
+                                    <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-2">2019年</h3>
+                                    <h4 class="text-lg font-medium text-earth-green mb-3">品牌創立</h4>
+                                    <p class="text-earth-brown dark:text-gray-400">
+                                        小雅在台北成立綠意手作工作室，開始與第一批在地工藝師合作
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-earth-green rounded-full border-4 border-white dark:border-gray-900"></div>
+                            <div class="w-1/2 pl-8">
+                                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="工作室成立"
+                                     class="rounded-lg">
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 2 -->
+                        <div class="relative flex items-center mb-12 flex-row-reverse">
+                            <div class="w-1/2 pl-8 text-left">
+                                <div class="bg-earth-light rounded-lg p-6 dark:bg-gray-800">
+                                    <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-2">2020年</h3>
+                                    <h4 class="text-lg font-medium text-earth-green mb-3">線上平台啟動</h4>
+                                    <p class="text-earth-brown dark:text-gray-400">
+                                        建立官方網站，開始線上銷售，將永續理念推廣至更多消費者
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-earth-green rounded-full border-4 border-white dark:border-gray-900"></div>
+                            <div class="w-1/2 pr-8">
+                                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="線上平台"
+                                     class="rounded-lg">
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 3 -->
+                        <div class="relative flex items-center mb-12">
+                            <div class="w-1/2 pr-8 text-right">
+                                <div class="bg-earth-light rounded-lg p-6 dark:bg-gray-800">
+                                    <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-2">2022年</h3>
+                                    <h4 class="text-lg font-medium text-earth-green mb-3">國際認證</h4>
+                                    <p class="text-earth-brown dark:text-gray-400">
+                                        獲得有機棉認證與公平貿易標章，品質與理念獲得國際肯定
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-earth-green rounded-full border-4 border-white dark:border-gray-900"></div>
+                            <div class="w-1/2 pl-8">
+                                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="有機棉認證與公平貿易標章"
+                                     class="rounded-lg">
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 4 -->
+                        <div class="relative flex items-center flex-row-reverse">
+                            <div class="w-1/2 pl-8 text-left">
+                                <div class="bg-earth-light rounded-lg p-6 dark:bg-gray-800">
+                                    <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-2">2024年</h3>
+                                    <h4 class="text-lg font-medium text-earth-green mb-3">永續未來</h4>
+                                    <p class="text-earth-brown dark:text-gray-400">
+                                        持續創新，與更多在地工藝師合作，推廣永續生活理念至全台灣
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-earth-green rounded-full border-4 border-white dark:border-gray-900"></div>
+                            <div class="w-1/2 pr-8">
+                                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="永續未來"
+                                     class="rounded-lg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Impact Section -->
+            <section class="py-20 bg-earth-beige dark:bg-gray-800">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-earth-dark dark:text-white mb-6">我們的影響力</h2>
+                        <div class="w-16 h-1 bg-earth-green mx-auto mb-8"></div>
+                        <p class="text-lg text-earth-brown dark:text-gray-400 max-w-3xl mx-auto">
+                            數字見證我們的承諾與努力，每一個數據背後都是對永續未來的貢獻
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="text-center">
+                            <div class="bg-white rounded-2xl p-8 shadow-lg dark:bg-gray-700">
+                                <div class="text-4xl font-bold text-earth-green mb-2">50+</div>
+                                <div class="text-earth-dark dark:text-white font-medium mb-2">在地工藝師</div>
+                                <div class="text-sm text-earth-brown dark:text-gray-400">創造公平就業機會</div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-white rounded-2xl p-8 shadow-lg dark:bg-gray-700">
+                                <div class="text-4xl font-bold text-earth-green mb-2">1000+</div>
+                                <div class="text-earth-dark dark:text-white font-medium mb-2">滿意顧客</div>
+                                <div class="text-sm text-earth-brown dark:text-gray-400">選擇永續生活方式</div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-white rounded-2xl p-8 shadow-lg dark:bg-gray-700">
+                                <div class="text-4xl font-bold text-earth-green mb-2">5000kg</div>
+                                <div class="text-earth-dark dark:text-white font-medium mb-2">減少碳排放</div>
+                                <div class="text-sm text-earth-brown dark:text-gray-400">透過在地生產與材料</div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-white rounded-2xl p-8 shadow-lg dark:bg-gray-700">
+                                <div class="text-4xl font-bold text-earth-green mb-2">95%</div>
+                                <div class="text-earth-dark dark:text-white font-medium mb-2">回收包裝</div>
+                                <div class="text-sm text-earth-brown dark:text-gray-400">實現零浪費目標</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="py-20 bg-earth-green">
+                <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">加入我們的永續之旅</h2>
+                    <p class="text-xl text-earth-beige mb-8">
+                        每一次的選擇，都是對未來的投票。讓我們一起用行動守護地球
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button class="bg-white text-earth-green px-8 py-3 rounded-lg font-medium hover:bg-earth-beige transition-colors" data-page="products">
+                            探索產品
+                        </button>
+                        <button class="border-2 border-white text-white px-8 py-3 rounded-lg font-medium hover:bg-white hover:text-earth-green transition-colors" data-page="contact">
+                            聯絡我們
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <main class="pt-16">
+            <!-- Page Header -->
+            <section class="bg-earth-beige py-20 dark:bg-gray-800">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-4xl sm:text-5xl font-bold text-earth-dark dark:text-white mb-6">聯絡我們</h1>
+                    <p class="text-lg text-earth-brown dark:text-gray-400 max-w-3xl mx-auto">
+                        我們很樂意聽到您的想法和建議。無論是產品諮詢、合作提案，或是對永續生活的任何疑問，都歡迎與我們聯繫
+                    </p>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="py-20 bg-white dark:bg-gray-900">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                        <!-- Contact Form -->
+                        <div class="fade-in">
+                            <h2 class="text-2xl font-bold text-earth-dark dark:text-white mb-8">送出訊息</h2>
+                            <form class="space-y-6" id="contactForm">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-earth-dark dark:text-white mb-2">姓名 *</label>
+                                        <input type="text" required class="w-full px-4 py-3 border border-earth-beige rounded-lg focus:outline-none focus:ring-2 focus:ring-earth-green text-base dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-earth-dark dark:text-white mb-2">電話</label>
+                                        <input type="tel" class="w-full px-4 py-3 border border-earth-beige rounded-lg focus:outline-none focus:ring-2 focus:ring-earth-green text-base dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-earth-dark dark:text-white mb-2">電子郵件 *</label>
+                                    <input type="email" required class="w-full px-4 py-3 border border-earth-beige rounded-lg focus:outline-none focus:ring-2 focus:ring-earth-green text-base dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-earth-dark dark:text-white mb-2">主題 *</label>
+                                    <select required class="w-full px-4 py-3 border border-earth-beige rounded-lg focus:outline-none focus:ring-2 focus:ring-earth-green text-base dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                                        <option value="">請選擇主題</option>
+                                        <option value="product">產品諮詢</option>
+                                        <option value="order">訂單問題</option>
+                                        <option value="partnership">合作提案</option>
+                                        <option value="feedback">意見回饋</option>
+                                        <option value="other">其他</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-earth-dark dark:text-white mb-2">訊息內容 *</label>
+                                    <textarea rows="5" required class="w-full px-4 py-3 border border-earth-beige rounded-lg focus:outline-none focus:ring-2 focus:ring-earth-green text-base resize-none dark:bg-gray-800 dark:border-gray-600 dark:text-white" placeholder="請詳細描述您的問題或建議..."></textarea>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="privacy" required class="mr-3 w-4 h-4 text-earth-green border-gray-300 rounded focus:ring-earth-green">
+                                    <label for="privacy" class="text-sm text-earth-brown dark:text-gray-400">
+                                        我同意 <button type="button" class="text-earth-green hover:underline" onclick="showPrivacyPolicy()">隱私政策</button> 並允許綠意手作聯絡我
+                                    </label>
+                                </div>
+                                <button type="submit" class="w-full bg-earth-green text-white py-3 rounded-lg font-medium hover:bg-earth-dark transition-colors">
+                                    送出訊息
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="fade-in">
+                            <h2 class="text-2xl font-bold text-earth-dark dark:text-white mb-8">聯絡資訊</h2>
+
+                            <!-- Store Photo -->
+                            <div class="mb-8">
+                                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                     alt="綠意手作工作室"
+                                     class="w-full h-64 object-cover rounded-2xl">
+                            </div>
+
+                            <div class="space-y-6">
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-earth-green/20 p-3 rounded-lg">
+                                        <i class="fas fa-map-marker-alt text-earth-green text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-earth-dark dark:text-white mb-2">工作室地址</h3>
+                                        <p class="text-earth-brown dark:text-gray-400">台北市大安區永康街15號2樓</p>
+                                        <p class="text-sm text-earth-brown dark:text-gray-400 mt-1">捷運東門站3號出口步行3分鐘</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-earth-green/20 p-3 rounded-lg">
+                                        <i class="fas fa-phone text-earth-green text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-earth-dark dark:text-white mb-2">聯絡電話</h3>
+                                        <p class="text-earth-brown dark:text-gray-400">02-2345-6789</p>
+                                        <p class="text-sm text-earth-brown dark:text-gray-400 mt-1">服務時間：週一至週五 09:00-18:00</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-earth-green/20 p-3 rounded-lg">
+                                        <i class="fas fa-envelope text-earth-green text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-earth-dark dark:text-white mb-2">電子郵件</h3>
+                                        <p class="text-earth-brown dark:text-gray-400">hello@greencraft.tw</p>
+                                        <p class="text-sm text-earth-brown dark:text-gray-400 mt-1">我們會在24小時內回覆您的郵件</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-earth-green/20 p-3 rounded-lg">
+                                        <i class="fas fa-clock text-earth-green text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-earth-dark dark:text-white mb-2">營業時間</h3>
+                                        <div class="text-earth-brown dark:text-gray-400 space-y-1">
+                                            <p>週一至週五：09:00 - 18:00</p>
+                                            <p>週六至週日：10:00 - 17:00</p>
+                                            <p class="text-sm">國定假日休息</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Map Section -->
+            <section class="py-20 bg-earth-beige dark:bg-gray-800">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-earth-dark dark:text-white mb-4">我們的位置</h2>
+                        <p class="text-lg text-earth-brown dark:text-gray-400">
+                            歡迎親自來到我們的工作室，感受手作的溫度與永續的理念
+                        </p>
+                    </div>
+
+                    <!-- Map Placeholder -->
+                    <div class="bg-white rounded-2xl p-8 shadow-lg dark:bg-gray-700">
+                        <div class="aspect-video bg-earth-sage/20 rounded-xl flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-map-marked-alt text-6xl text-earth-green mb-4"></i>
+                                <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-2">互動地圖</h3>
+                                <p class="text-earth-brown dark:text-gray-400">台北市大安區永康街15號2樓</p>
+                                <button class="mt-4 bg-earth-green text-white px-6 py-2 rounded-lg hover:bg-earth-dark transition-colors">
+                                    在 Google Maps 中查看
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="py-20 bg-white dark:bg-gray-900">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl font-bold text-earth-dark dark:text-white mb-4">常見問題</h2>
+                        <p class="text-lg text-earth-brown dark:text-gray-400">
+                            以下是客戶最常詢問的問題，或許能幫您找到答案
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="faq-item bg-earth-light rounded-lg dark:bg-gray-800">
+                            <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
+                                <span class="font-semibold text-earth-dark dark:text-white">所有產品都是手工製作的嗎？</span>
+                                <i class="fas fa-chevron-down text-earth-green transition-transform"></i>
+                            </button>
+                            <div class="faq-content hidden px-6 pb-4">
+                                <p class="text-earth-brown dark:text-gray-400">
+                                    是的，我們所有的產品都是由經驗豐富的在地工藝師純手工製作。每一件作品都是獨一無二的，可能會有些微的差異，這正是手作品的珍貴之處。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-earth-light rounded-lg dark:bg-gray-800">
+                            <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
+                                <span class="font-semibold text-earth-dark dark:text-white">材料是否真的環保？</span>
+                                <i class="fas fa-chevron-down text-earth-green transition-transform"></i>
+                            </button>
+                            <div class="faq-content hidden px-6 pb-4">
+                                <p class="text-earth-brown dark:text-gray-400">
+                                    我們承諾使用100%天然、有機或回收材料。所有原料都經過嚴格篩選，具備相關環保認證。我們也提供每件產品的材料來源證明。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-earth-light rounded-lg dark:bg-gray-800">
+                            <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
+                                <span class="font-semibold text-earth-dark dark:text-white">運送時間需要多久？</span>
+                                <i class="fas fa-chevron-down text-earth-green transition-transform"></i>
+                            </button>
+                            <div class="faq-content hidden px-6 pb-4">
+                                <p class="text-earth-brown dark:text-gray-400">
+                                    因為是手工製作，一般產品需要3-7個工作天製作時間，加上運送時間，大約7-10個工作天可收到商品。客製化商品可能需要更長時間。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-earth-light rounded-lg dark:bg-gray-800">
+                            <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
+                                <span class="font-semibold text-earth-dark dark:text-white">可以退換貨嗎？</span>
+                                <i class="fas fa-chevron-down text-earth-green transition-transform"></i>
+                            </button>
+                            <div class="faq-content hidden px-6 pb-4">
+                                <p class="text-earth-brown dark:text-gray-400">
+                                    我們提供7天鑑賞期，如果商品有瑕疵或不符期待，可以申請退換貨。請注意商品必須保持完整包裝且未使用過。客製化商品恕不接受退換。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-earth-light rounded-lg dark:bg-gray-800">
+                            <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
+                                <span class="font-semibold text-earth-dark dark:text-white">可以客製化產品嗎？</span>
+                                <i class="fas fa-chevron-down text-earth-green transition-transform"></i>
+                            </button>
+                            <div class="faq-content hidden px-6 pb-4">
+                                <p class="text-earth-brown dark:text-gray-400">
+                                    可以！我們歡迎客製化需求。請透過聯絡表單或電話與我們討論您的想法，我們會評估可行性並提供報價。客製化商品通常需要2-3週製作時間。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Social Media -->
+            <section class="py-16 bg-earth-green">
+                <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-white mb-4">跟隨我們的永續之旅</h2>
+                    <p class="text-earth-beige mb-8 text-lg">
+                        在社群媒體上關注我們，獲得最新的手作教學與永續生活靈感
+                    </p>
+                    <div class="flex justify-center space-x-6">
+                        <a href="#" class="bg-white/20 hover:bg-white/30 text-white w-16 h-16 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-facebook-f text-2xl"></i>
+                        </a>
+                        <a href="#" class="bg-white/20 hover:bg-white/30 text-white w-16 h-16 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="#" class="bg-white/20 hover:bg-white/30 text-white w-16 h-16 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-line text-2xl"></i>
+                        </a>
+                        <a href="#" class="bg-white/20 hover:bg-white/30 text-white w-16 h-16 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-youtube text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-earth-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold text-earth-sage mb-4">綠意手作</h3>
+                    <p class="text-gray-300 mb-4">
+                        致力於永續工藝，為環境創造美好未來
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">快速連結</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><button class="hover:text-earth-sage transition-colors" data-page="home">首頁</button></li>
+                        <li><button class="hover:text-earth-sage transition-colors" data-page="products">產品</button></li>
+                        <li><button class="hover:text-earth-sage transition-colors" data-page="story">品牌故事</button></li>
+                        <li><button class="hover:text-earth-sage transition-colors" data-page="contact">聯絡我們</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">客戶服務</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><button class="hover:text-earth-sage transition-colors" onclick="showServicePage('shipping')">運送資訊</button></li>
+                        <li><button class="hover:text-earth-sage transition-colors" onclick="showServicePage('return')">退換貨政策</button></li>
+                        <li><button class="hover:text-earth-sage transition-colors" onclick="showServicePage('faq')">常見問題</button></li>
+                        <li><button class="hover:text-earth-sage transition-colors" onclick="showPrivacyPolicy()">隱私政策</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">跟隨我們</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-earth-sage text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-earth-green transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="bg-earth-sage text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-earth-green transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="bg-earth-sage text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-earth-green transition-colors">
+                            <i class="fab fa-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-600 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 綠意手作. 版權所有.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-semibold text-earth-dark dark:text-white">購物車</h3>
+                    <button id="closeCart" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="cartItems" class="space-y-4 mb-6">
+                    <!-- Cart items will be added here -->
+                </div>
+                <div class="border-t border-gray-200 dark:border-gray-600 pt-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-semibold text-earth-dark dark:text-white">總計:</span>
+                        <span id="cartTotal" class="font-bold text-xl text-earth-green">NT$ 0</span>
+                    </div>
+                    <button class="w-full bg-earth-green text-white py-3 rounded-lg font-medium hover:bg-earth-dark transition-colors">
+                        前往結帳
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full p-8 text-center">
+                <div class="bg-earth-green/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check text-2xl text-earth-green"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-earth-dark dark:text-white mb-2">訊息已送出</h3>
+                <p class="text-earth-brown dark:text-gray-400 mb-6">
+                    感謝您的來信！我們會在24小時內回覆您。
+                </p>
+                <button id="closeSuccess" class="bg-earth-green text-white px-6 py-2 rounded-lg hover:bg-earth-dark transition-colors">
+                    確認
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Pages Modal -->
+    <div id="serviceModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full p-8 max-h-[80vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 id="serviceTitle" class="text-2xl font-semibold text-earth-dark dark:text-white"></h3>
+                    <button id="closeService" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="serviceContent" class="text-earth-brown dark:text-gray-400 space-y-4">
+                    <!-- Service content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Update navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('text-earth-green', 'font-medium');
+                link.classList.add('text-earth-dark', 'hover:text-earth-green');
+            });
+
+            document.querySelectorAll(`[data-page="${pageId}"]`).forEach(link => {
+                link.classList.remove('text-earth-dark', 'hover:text-earth-green');
+                link.classList.add('text-earth-green', 'font-medium');
+            });
+
+            // Close mobile menu
+            document.getElementById('mobileMenu').classList.add('-translate-x-full');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Add click events to all navigation elements
+        document.addEventListener('click', (e) => {
+            if (e.target.hasAttribute('data-page')) {
+                e.preventDefault();
+                showPage(e.target.getAttribute('data-page'));
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('-translate-x-full');
+        });
+
+        // Filter functionality for products page
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productItems = document.querySelectorAll('.product-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                productItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Shopping cart functionality
+        let cart = [];
+        const cartBtn = document.getElementById('cartBtn');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartCount = document.getElementById('cartCount');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+
+        // Load cart from localStorage
+        try {
+            cart = JSON.parse(localStorage.getItem('greencraft_cart') || '[]');
+        } catch (e) {
+            cart = [];
+        }
+
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const product = button.dataset.product;
+                const price = parseInt(button.dataset.price);
+
+                const existingItem = cart.find(item => item.product === product);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ product, price, quantity: 1 });
+                }
+
+                // Save to localStorage
+                try {
+                    localStorage.setItem('greencraft_cart', JSON.stringify(cart));
+                } catch (e) {
+                    console.log('無法保存購物車資料');
+                }
+
+                updateCart();
+
+                // Show feedback
+                const originalText = button.textContent;
+                button.textContent = '已加入!';
+                button.disabled = true;
+                button.classList.add('bg-gray-400');
+                button.classList.remove('bg-earth-green', 'hover:bg-earth-dark');
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    button.classList.remove('bg-gray-400');
+                    button.classList.add('bg-earth-green', 'hover:bg-earth-dark');
+                }, 1000);
+            });
+        });
+
+        function updateCart() {
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-center text-gray-500">購物車是空的</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price * item.quantity;
+
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'flex justify-between items-center py-2';
+                    cartItem.innerHTML = `
+                        <div class="flex-1">
+                            <div class="font-medium text-earth-dark dark:text-white">${item.product}</div>
+                            <div class="text-sm text-earth-brown dark:text-gray-400">NT$ ${item.price.toLocaleString()} x ${item.quantity}</div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="changeQuantity(${index}, -1)" class="text-earth-green hover:text-earth-dark w-8 h-8 rounded-full border border-earth-green flex items-center justify-center">
+                                <i class="fas fa-minus text-xs"></i>
+                            </button>
+                            <span class="w-8 text-center">${item.quantity}</span>
+                            <button onclick="changeQuantity(${index}, 1)" class="text-earth-green hover:text-earth-dark w-8 h-8 rounded-full border border-earth-green flex items-center justify-center">
+                                <i class="fas fa-plus text-xs"></i>
+                            </button>
+                            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 ml-2">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+            }
+
+            cartTotal.textContent = `NT$ ${total.toLocaleString()}`;
+        }
+
+        function changeQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            try {
+                localStorage.setItem('greencraft_cart', JSON.stringify(cart));
+            } catch (e) {
+                console.log('無法保存購物車資料');
+            }
+            updateCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            try {
+                localStorage.setItem('greencraft_cart', JSON.stringify(cart));
+            } catch (e) {
+                console.log('無法保存購物車資料');
+            }
+            updateCart();
+        }
+
+        cartBtn.addEventListener('click', () => {
+            cartModal.classList.remove('hidden');
+        });
+
+        closeCart.addEventListener('click', () => {
+            cartModal.classList.add('hidden');
+        });
+
+        cartModal.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.classList.add('hidden');
+            }
+        });
+
+        // Contact Form
+        const contactForm = document.getElementById('contactForm');
+        const successModal = document.getElementById('successModal');
+        const closeSuccess = document.getElementById('closeSuccess');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                successModal.classList.remove('hidden');
+                contactForm.reset();
+            });
+        }
+
+        if (closeSuccess) {
+            closeSuccess.addEventListener('click', () => {
+                successModal.classList.add('hidden');
+            });
+        }
+
+        // FAQ Toggle
+        function toggleFAQ(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+
+            content.classList.toggle('hidden');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+
+        // Service Pages
+        const serviceModal = document.getElementById('serviceModal');
+        const serviceTitle = document.getElementById('serviceTitle');
+        const serviceContent = document.getElementById('serviceContent');
+        const closeService = document.getElementById('closeService');
+
+        function showServicePage(type) {
+            const services = {
+                shipping: {
+                    title: '運送資訊',
+                    content: `
+                        <h4 class="text-lg font-semibold text-earth-dark dark:text-white mb-3">運送方式與費用</h4>
+                        <p class="mb-4">我們提供多種運送方式，讓您選擇最適合的服務：</p>
+                        <ul class="list-disc pl-6 space-y-2 mb-6">
+                            <li>標準配送（3-5個工作天）：NT$ 100</li>
+                            <li>快速配送（1-2個工作天）：NT$ 200</li>
+                            <li>超商取貨（3-7個工作天）：NT$ 60</li>
+                            <li>門市自取：免運費</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold text-earth-dark dark:text-white mb-3">免運費條件</h4>
+                        <p class="mb-4">訂單金額滿 NT$ 1,500 即享免運費服務（限台灣本島）。</p>
+                        <h4 class="text-lg font-semibold text-earth-dark dark:text-white mb-3">配送範圍</h4>
+                        <p>目前服務範圍包含台灣本島及離島地區。海外配送請另洽客服。</p>
+                    `
+                },
+                return: {
+                    title: '退換貨政策',
+                    content: `
+                        <h4 class="text-lg font-semibold text-earth-dark dark:text-white mb-3">退換貨條件</h4>
+                        <p class="mb-4">我們提供 7 天鑑賞期，讓您安心購物：</p>
+                        <ul class="list-disc pl-6 space-y-2 mb-6">
+                            <li>商品須保持完整包裝且未使用過</li>
+                            <li>收到商品後 7 天內提出申請</li>
+                            <li>商品無人為損壞或污損</li>
+                            <li>客製化商品恕不接受退換</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold text-earth-dark dark:text-white mb-3">退換貨流程</h4>
+                        <ol class="list-decimal pl-6 space-y-2 mb-6">
+                            <li>聯絡客服申請退換貨</li>
+                            <li>填寫退換貨單並包裝商品</li>
+                            <li>寄回商品（運費自付）</li>
+                            <li>收到商品後 3-5 個工作天完成退款</li>
+                        </ol>
+                        <p>退款將原路退回至您的付款帳戶。</p>
+                    `
+                },
+                faq: {
+                    title: '常見問題',
+                    content: `
+                        <h4 class="text-lg font-semibold text-earth-dark dark:text-white mb-3">關於產品</h4>
+                        <div class="space-y-4 mb-6">
+                            <div>
+                                <p class="font-medium">Q: 所有產品都是手工製作的嗎？</p>
+                                <p>A: 是的，我們所有產品都是由經驗豐富的在地工藝師純手工製作。</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">Q: 材料是否真的環保？</p>
+                                <p>A: 我們承諾使用100%天然、有機或回收材料，並提供材料來源證明。</p>
+                            </div>
+                        </div>
+                        <h4 class="text-lg font-semibold text-earth-dark dark:text-white mb-3">關於訂單</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="font-medium">Q: 可以修改或取消訂單嗎？</p>
+                                <p>A: 訂單成立後 24 小時內可聯絡客服修改，超過時間恕無法更改。</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">Q: 如何查詢訂單狀態？</p>
+                                <p>A: 您可以透過訂單確認信中的連結查詢，或聯絡客服查詢。</p>
+                            </div>
+                        </div>
+                    `
+                }
+            };
+
+            const service = services[type];
+            if (service) {
+                serviceTitle.textContent = service.title;
+                serviceContent.innerHTML = service.content;
+                serviceModal.classList.remove('hidden');
+            }
+        }
+
+        function showPrivacyPolicy() {
+            serviceTitle.textContent = '隱私政策';
+            serviceContent.innerHTML = `
+                <h4 class="text-lg font-semibold text-earth-dark dark:text-white mb-3">資料收集與使用</h4>
+                <p class="mb-4">我們收集您提供的個人資料，包括姓名、聯絡方式等，僅用於：</p>
+                <ul class="list-disc pl-6 space-y-2 mb-6">
+                    <li>處理您的訂單與配送</li>
+                    <li>提供客戶服務</li>
+                    <li>發送產品資訊與優惠通知（需您同意）</li>
+                </ul>
+                <h4 class="text-lg font-semibold text-earth-dark dark:text-white mb-3">資料保護</h4>
+                <p class="mb-4">我們採用適當的安全措施保護您的個人資料，不會在未經您同意的情況下與第三方分享。</p>
+                <h4 class="text-lg font-semibold text-earth-dark dark:text-white mb-3">您的權利</h4>
+                <p class="mb-4">您有權要求查看、修正或刪除您的個人資料。如需協助，請聯絡我們的客服團隊。</p>
+                <p>本政策最後更新日期：2024年1月1日</p>
+            `;
+            serviceModal.classList.remove('hidden');
+        }
+
+        closeService.addEventListener('click', () => {
+            serviceModal.classList.add('hidden');
+        });
+
+        serviceModal.addEventListener('click', (e) => {
+            if (e.target === serviceModal) {
+                serviceModal.classList.add('hidden');
+            }
+        });
+
+        // Initialize cart on page load
+        updateCart();
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.card-hover, .fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
